@@ -76,6 +76,7 @@ board.append(box)
 
 function legalizeNuclearBombs()
 {
+    hasfailed = true
 for(let j=0;j<9;j++)
 {
 for(let i=0;i<9;i++)
@@ -138,7 +139,7 @@ let image = document.createElement("img")
 image.src = "./flag.jpg"
 selectedTile.appendChild(image)
 activeBoard[idY][idX] = 5
-console.log(activeBoard)
+//console.log(activeBoard)
 }
 
 
