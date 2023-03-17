@@ -1,0 +1,40 @@
+#gameboard
+{
+    display: grid;
+    width: 10%;
+    height: 10%;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+#gameboard div
+{
+    border: 1px solid black;
+    background-color: rgba(255, 255, 255, 0.704);
+    font-size:xx-large;
+    resize: none;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#gameboard div img
+{
+  height:100%;
+  width:100%;
+}
+
+body
+{
+  background-color: black;
+}
+
+/*
+#center {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+  }
+  */
