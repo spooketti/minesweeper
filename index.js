@@ -12,8 +12,8 @@ let codeboard = [
     [0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0]
 ]
-let snd = new Audio("boom.mp3"); // buffers automatically when created
-
+let boom = new Audio("boom.mp3"); // buffers automatically when created
+let rareSound6 = new Audio("sixSound.wav")
 const chordPos = [ //written in terms of x,y
     [0,1],
     [1,1],
@@ -70,7 +70,7 @@ for(let i=0;i<9;i++)
 if(codeboard[j][i] == 5)
 {
     document.getElementById(j.toString()+i.toString()).style.backgroundColor = "#FF0000"
-    snd.play()
+    boom.play()
 }
 }
 }
@@ -95,27 +95,33 @@ function genBombs(boms,requirement)
         genBombs(boms,requirement)
     }
 }
-genBombs(0,12)
+genBombs(0,20)
 
 let selectedTile = null
 
 //console.log(codeboard[0][-1])
 
-document.addEventListener('mousemove', e => {
-   selectedTile = document.elementFromPoint(e.clientX, e.clientY)
-    
-  }, {passive: true})
+function flagTile()
+{
+// console.log(selectedTile.tagName)
+if(selectedTile.tagName == "IMG")
+{
+    //console.log("what")
+    selectedTile.remove()
+}
+//console.log(selectedTile.className)
+if(selectedTile.getAttribute("revealed") || selectedTile.id.length != 2 || selectedTile.hasChildNodes())
+{
+    return;
+}
+let image = document.createElement("img")
+image.src = "./flag.jpg"
+selectedTile.appendChild(image)
+}
 
-
-  document.addEventListener("keydown",(e)=> {
-    if(hasfailed == true)
-    {
-        return;
-    }
-    switch(e.code)
-    {
-        case "KeyZ":
-        if(selectedTile.hasChildNodes())
+function revealTile()
+{
+    if(selectedTile.hasChildNodes())
         {
             return;
         }
@@ -158,28 +164,42 @@ document.addEventListener('mousemove', e => {
             selectedTile.style.backgroundColor = "#808080"
             selectedTile.style.color = assignColor(bombs)
             selectedTile.innerText = bombs
+            if(bombs == 6)
+            {
+                rareSound6.play()
+            }
         }
+}
+
+document.addEventListener('mousemove', e => {
+   selectedTile = document.elementFromPoint(e.clientX, e.clientY)
+    
+  }, {passive: true})
+
+
+  document.addEventListener("keydown",(e)=> {
+    if(hasfailed == true)
+    {
+        return;
+    }
+    switch(e.code)
+    {
+        case "KeyZ":
+        revealTile()
         break;
         case "KeyX":
-          //  console.log(selectedTile)
-           // console.log(selectedTile.tagName)
-            if(selectedTile.tagName == "IMG")
-            {
-                console.log("what")
-                selectedTile.remove()
-            }
-            //console.log(selectedTile.className)
-            if(selectedTile.getAttribute("revealed") || selectedTile.id.length != 2 || selectedTile.hasChildNodes())
-            {
-                return;
-            }
-        let image = document.createElement("img")
-        image.src = "./flag.jpg"
-        selectedTile.appendChild(image)
+          flagTile()
         break;
 
     }
     // use e.keyCode
 });
 
+window.oncontextmenu = function () {
+    flagTile()
+  }
+
+  document.addEventListener("click", function() {
+    revealTile()
+    });
 
