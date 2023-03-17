@@ -12,6 +12,19 @@ let codeboard = [
     [0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0]
 ]
+let activeBoard = 
+[
+    [0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0]
+]
+//console.log(activeBoard)
 let boom = new Audio("boom.mp3"); // buffers automatically when created
 let rareSound6 = new Audio("sixSound.wav")
 const chordPos = [ //written in terms of x,y
@@ -103,11 +116,18 @@ let selectedTile = null
 
 function flagTile()
 {
+    let idY = parseInt(selectedTile.id.charAt(0))
+    let idX = parseInt(selectedTile.id.charAt(1))
 // console.log(selectedTile.tagName)
 if(selectedTile.tagName == "IMG")
 {
-    //console.log("what")
+    idY = parseInt(selectedTile.parentElement.id.charAt(0))
+    idX = parseInt(selectedTile.parentElement.id.charAt(1))
+    activeBoard[idY][idX] = 0
     selectedTile.remove()
+  //  console.log(activeBoard)
+    return;
+    
 }
 //console.log(selectedTile.className)
 if(selectedTile.getAttribute("revealed") || selectedTile.id.length != 2 || selectedTile.hasChildNodes())
@@ -117,20 +137,24 @@ if(selectedTile.getAttribute("revealed") || selectedTile.id.length != 2 || selec
 let image = document.createElement("img")
 image.src = "./flag.jpg"
 selectedTile.appendChild(image)
+activeBoard[idY][idX] = 5
+console.log(activeBoard)
 }
 
-function revealTile()
+
+
+function revealTile(element)
 {
-    if(selectedTile.hasChildNodes())
+    if(element.hasChildNodes())//I ACCIDENTALLY JUST SAVED MYSELF SO MUCH TIME THIS IS SUPPOSED TO BE ANTI CHEAT BUT IT'S ALSO CHORD PROTECTION
         {
             return;
         }
-        if(selectedTile.id.length == 2)
+        if(element.id.length == 2)
         {
            // console.log(codeboard)
-           selectedTile.setAttribute("revealed","hey stop looking at the source code")
-            let idY = parseInt(selectedTile.id.charAt(0))
-            let idX = parseInt(selectedTile.id.charAt(1))
+           element.setAttribute("revealed","hey stop looking at the source code")
+            let idY = parseInt(element.id.charAt(0))
+            let idX = parseInt(element.id.charAt(1))
             let bombs = 0
             if(codeboard[idY][idX] == 5)
             {
@@ -161,14 +185,50 @@ function revealTile()
             }
               //console.log(codeboard[idY+chordPos[i][1]][idX+chordPos[i][0]])
             }
-            selectedTile.style.backgroundColor = "#808080"
-            selectedTile.style.color = assignColor(bombs)
-            selectedTile.innerText = bombs
+            element.style.backgroundColor = "#808080"
+            element.style.color = assignColor(bombs)
+            element.innerText = bombs
             if(bombs == 6)
             {
                 rareSound6.play()
             }
         }
+}
+
+function chord()
+{
+if(selectedTile.getAttribute("revealed"))
+{
+    let idY = parseInt(selectedTile.id.charAt(0))
+    let idX = parseInt(selectedTile.id.charAt(1))
+    let req = parseInt(selectedTile.innerText)
+    let bombs = 0;
+    for(let i=0;i<8;i++)
+    {
+     
+      if((idY+chordPos[i][1] > 8 || idY+chordPos[i][1] < 0 || idX+chordPos[i][0] < 0 || idX+chordPos[i][0] > 8) == false)
+      {
+      if(activeBoard[idY+chordPos[i][1]][idX+chordPos[i][0]] == 5)
+      {
+        bombs += 1
+      }
+    }
+    }
+    if(bombs != req)
+    {
+        return;
+    }
+    //worlds most optimized code 
+    for(let i=0;i<8;i++)
+    {
+     
+      if((idY+chordPos[i][1] > 8 || idY+chordPos[i][1] < 0 || idX+chordPos[i][0] < 0 || idX+chordPos[i][0] > 8) == false)
+      {
+      revealTile(document.getElementById((idY+chordPos[i][1]).toString()+(idX+chordPos[i][0]).toString()))
+    }
+}
+
+}
 }
 
 document.addEventListener('mousemove', e => {
@@ -185,10 +245,13 @@ document.addEventListener('mousemove', e => {
     switch(e.code)
     {
         case "KeyZ":
-        revealTile()
+        revealTile(selectedTile)
         break;
         case "KeyX":
           flagTile()
+        break;
+        case "KeyC":
+            chord()
         break;
 
     }
@@ -200,6 +263,6 @@ window.oncontextmenu = function () {
   }
 
   document.addEventListener("click", function() {
-    revealTile()
+    revealTile(selectedTile)
     });
 
