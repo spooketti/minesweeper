@@ -1,5 +1,6 @@
 let board = document.getElementById("gameboard")
 let firstclick = true
+let hasfailed = false
 let codeboard = [
     [0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0],
@@ -11,6 +12,7 @@ let codeboard = [
     [0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0]
 ]
+let snd = new Audio("boom.mp3"); // buffers automatically when created
 
 const chordPos = [ //written in terms of x,y
     [0,1],
@@ -59,27 +61,45 @@ board.append(box)
 }
 }
 
-function genBombs(boms)
+function legalizeNuclearBombs()
 {
+for(let j=0;j<9;j++)
+{
+for(let i=0;i<9;i++)
+{
+if(codeboard[j][i] == 5)
+{
+    document.getElementById(j.toString()+i.toString()).style.backgroundColor = "#FF0000"
+    snd.play()
+}
+}
+}
+}
+
+function genBombs(boms,requirement)
+{
+    //console.log(requirement)
+  //  console.log(boms)
     let randx = Math.round(Math.random() * 8)
     let randy = Math.round(Math.random() * 8)
     if(codeboard[randy][randx] != 0) //generating on a pre exsisting mine
     {
-     genBombs(boms)
+     genBombs(boms,requirement)
      return    
     }
     codeboard[randy][randx] = 5
-   // document.getElementById(randy.toString()+randx.toString()).style.backgroundColor = "#FF0000"
-    if(boms < 12)
+    boms++
+  // document.getElementById(randy.toString()+randx.toString()).style.backgroundColor = "#FF0000"
+    if(boms < requirement)
     {
-        genBombs(boms+1)
+        genBombs(boms,requirement)
     }
 }
-genBombs(0)
+genBombs(0,12)
 
 let selectedTile = null
 
-console.log(codeboard[0][-1])
+//console.log(codeboard[0][-1])
 
 document.addEventListener('mousemove', e => {
    selectedTile = document.elementFromPoint(e.clientX, e.clientY)
@@ -88,6 +108,10 @@ document.addEventListener('mousemove', e => {
 
 
   document.addEventListener("keydown",(e)=> {
+    if(hasfailed == true)
+    {
+        return;
+    }
     switch(e.code)
     {
         case "KeyZ":
@@ -104,9 +128,20 @@ document.addEventListener('mousemove', e => {
             let bombs = 0
             if(codeboard[idY][idX] == 5)
             {
-                alert("BOMB")
+                if(firstclick == true)
+                {
+                    genBombs(0,1)
+                    codeboard[idY][idX] = 0
+                    firstclick = false
+                    return;
+                }
+                legalizeNuclearBombs()
+                hasfailed = true;
+              //  snd.play();
+
                 return
             }
+            firstclick = false
             //console.log(codeboard[idX+chordPos[0][0]])
             for(let i=0;i<8;i++)
             {
@@ -126,8 +161,8 @@ document.addEventListener('mousemove', e => {
         }
         break;
         case "KeyX":
-            console.log(selectedTile)
-            console.log(selectedTile.tagName)
+          //  console.log(selectedTile)
+           // console.log(selectedTile.tagName)
             if(selectedTile.tagName == "IMG")
             {
                 console.log("what")
