@@ -259,11 +259,24 @@ document.addEventListener('mousemove', e => {
     // use e.keyCode
 });
 
+/*
 window.oncontextmenu = function () {
     flagTile()
   }
-
-  document.addEventListener("click", function() {
+*/
+  document.addEventListener("mousedown", function(e) {
+    switch(e.button)
+    {
+        case 0:
+        revealTile(selectedTile)
+            break;
+        case 1:
+            chord()
+            break;
+        case 2:
+            flagTile()
+            break;
+    }
     revealTile(selectedTile)
     });
 
