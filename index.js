@@ -277,6 +277,6 @@ window.oncontextmenu = function () {
             flagTile()
             break;
     }
-    revealTile(selectedTile)
+   // revealTile(selectedTile)
     });
 
