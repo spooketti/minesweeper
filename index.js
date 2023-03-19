@@ -1,4 +1,5 @@
 let board = document.getElementById("gameboard")
+let activeCount = document.getElementById("bombcount")
 let firstclick = true
 let hasfailed = false
 let codeboard = [
@@ -92,6 +93,7 @@ if(codeboard[j][i] == 5)
 
 function genBombs(boms,requirement)
 {
+  activeCount.innerText = requirement
     //console.log(requirement)
   //  console.log(boms)
     let randx = Math.round(Math.random() * 8)
@@ -126,6 +128,7 @@ if(selectedTile.tagName == "IMG")
     idX = parseInt(selectedTile.parentElement.id.charAt(1))
     activeBoard[idY][idX] = 0
     selectedTile.remove()
+    activeCount.innerText = parseInt(activeCount.innerText) + 1
   //  console.log(activeBoard)
     return;
     
@@ -139,6 +142,7 @@ let image = document.createElement("img")
 image.src = "./flag.jpg"
 selectedTile.appendChild(image)
 activeBoard[idY][idX] = 5
+activeCount.innerText = parseInt(activeCount.innerText) - 1
 //console.log(activeBoard)
 }
 
@@ -189,7 +193,7 @@ function revealTile(element)
             element.style.backgroundColor = "#808080"
             element.style.color = assignColor(bombs)
             element.innerText = bombs
-            if(bombs == 6)
+            if(bombs >= 6)
             {
                 rareSound6.play()
             }

@@ -31,8 +31,31 @@
 body
 {
   background-color: black;
+  color:white;
   font-family: 'Lexend Deca', sans-serif;
 }
+
+#title
+{
+  font-family: "Anek Telugu", sans-serif;
+  font-size: xx-large;
+}
+
+#bombcountflag
+{
+  width:50px;
+  height:50px;
+  display:block;
+  float:left;
+}
+
+#bombcount
+{
+  font-family: "Anek Telugu", sans-serif;
+  font-size: 50px;
+  display:inline;
+}
+
 
 /*
 #center {
