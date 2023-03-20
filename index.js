@@ -122,7 +122,8 @@ if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how bre
   }
   else
   {
-    localStorage.WCount = 1
+    localStorage.WCount = 0
+    Ws.innerText = "W:0"
   }
   
   if(localStorage.LCount)
@@ -140,7 +141,9 @@ if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how bre
   }
   else
   {
-    localStorage.LCount = 1
+    Ls.innerText = "Skill Issues:0"
+    localStorage.LCount = 0
+    
   }
   
 } 
