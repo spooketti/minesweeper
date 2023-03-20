@@ -1,8 +1,23 @@
+//array documentation
+
+
+
+/*codebaord docs
+0 = blank
+5 = bomb
+*/
+
 let board = document.getElementById("gameboard")
 let activeCount = document.getElementById("bombcount")
 let firstclick = true
 let hasfailed = false
-let codeboard = [
+let hasTimerBegan = false
+let activeTime = 0
+let area = 81
+let solutionCount = area
+let destroyedArea = 0
+let hasGen = false
+let codeboard = [ 
     [0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0],
@@ -15,19 +30,33 @@ let codeboard = [
 ]
 let activeBoard = 
 [
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0]
+  [0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0]
 ]
+
 //console.log(activeBoard)
+let timed = document.getElementById("timer")
+function timer()
+{
+ if(hasTimerBegan == false)
+  {
+    setInterval(function(){
+      activeTime += 1
+      timed.innerText = new Date(activeTime * 1000).toISOString().slice(11, 19); //idk wth this does but i like it https://bobbyhadz.com/blog/javascript-convert-seconds-to-hh-mm-ss
+    },1000)
+  }
+  hasTimerBegan = true
+}
 let boom = new Audio("boom.mp3"); // buffers automatically when created
 let rareSound6 = new Audio("sixSound.wav")
+let win = new Audio("win.mp3")
 const chordPos = [ //written in terms of x,y
     [0,1],
     [1,1],
@@ -75,7 +104,7 @@ board.append(box)
 }
 }
 
-function legalizeNuclearBombs()
+function legalizeNuclearBombs(status)
 {
     hasfailed = true
 for(let j=0;j<9;j++)
@@ -84,8 +113,16 @@ for(let i=0;i<9;i++)
 {
 if(codeboard[j][i] == 5)
 {
+  if(status == "w")
+  {
+    document.getElementById(j.toString()+i.toString()).style.backgroundColor = "#00ff00"
+    win.play()
+  }
+  else
+  {
     document.getElementById(j.toString()+i.toString()).style.backgroundColor = "#FF0000"
     boom.play()
+  }
 }
 }
 }
@@ -93,7 +130,12 @@ if(codeboard[j][i] == 5)
 
 function genBombs(boms,requirement)
 {
-  activeCount.innerText = requirement
+  if(firstclick == true)
+  {
+    activeCount.innerText = requirement
+  }
+  
+  solutionCount = area - requirement
     //console.log(requirement)
   //  console.log(boms)
     let randx = Math.round(Math.random() * 8)
@@ -104,8 +146,9 @@ function genBombs(boms,requirement)
      return    
     }
     codeboard[randy][randx] = 5
+   // activeBoard[randy][randx] = 6
     boms++
-  // document.getElementById(randy.toString()+randx.toString()).style.backgroundColor = "#FF0000"
+   //document.getElementById(randy.toString()+randx.toString()).style.backgroundColor = "#FF0000"
     if(boms < requirement)
     {
         genBombs(boms,requirement)
@@ -114,8 +157,16 @@ function genBombs(boms,requirement)
 genBombs(0,20)
 
 let selectedTile = null
-
+let evalboard = null
 //console.log(codeboard[0][-1])
+
+function evalulateWin()
+{
+  if(solutionCount == destroyedArea)
+  {
+    legalizeNuclearBombs("w")
+  }
+}
 
 function flagTile()
 {
@@ -156,6 +207,9 @@ function revealTile(element)
         }
         if(element.id.length == 2)
         {
+          timer()
+          destroyedArea++
+          evalulateWin()
            // console.log(codeboard)
            element.setAttribute("revealed","hey stop looking at the source code")
             let idY = parseInt(element.id.charAt(0))
@@ -165,9 +219,9 @@ function revealTile(element)
             {
                 if(firstclick == true)
                 {
+                    firstclick = false
                     genBombs(0,1)
                     codeboard[idY][idX] = 0
-                    firstclick = false
                     return;
                 }
                 legalizeNuclearBombs()
@@ -177,6 +231,8 @@ function revealTile(element)
                 return
             }
             firstclick = false
+           //s activeBoard[idY][idX] = 0
+          //  console.log(activeBoard)
             //console.log(codeboard[idX+chordPos[0][0]])
             for(let i=0;i<8;i++)
             {
@@ -235,6 +291,8 @@ if(selectedTile.getAttribute("revealed"))
 
 }
 }
+
+
 
 document.addEventListener('mousemove', e => {
    selectedTile = document.elementFromPoint(e.clientX, e.clientY)
