@@ -198,7 +198,7 @@ function genBombs(boms,requirement)
   {
     activeCount.innerText = requirement
     solutionCount = area - requirement
-    firstclick = false
+    //firstclick = false
   }
   
     //console.log(requirement)
