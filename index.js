@@ -117,11 +117,12 @@ if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how bre
       Ws.innerText = "W:" + localStorage.WCount.toString()
      // return
   }
+ 
+  
+  }
   else
   {
     localStorage.WCount = 1
-  }
-  
   }
   
   if(localStorage.LCount)
@@ -134,13 +135,13 @@ if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how bre
       Ls.innerText = "Skill Issues:" + localStorage.LCount.toString()
      // return
   }
+  
+ // localStorage.LCount = 1
+  }
   else
   {
     localStorage.LCount = 1
   }
- // localStorage.LCount = 1
-  }
-  
   
 } 
 else 
