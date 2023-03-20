@@ -115,9 +115,13 @@ if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how bre
       localStorage.WCount = parseInt(localStorage.WCount) + 1
      // console.log(localStorage.WCount)
       Ws.innerText = "W:" + localStorage.WCount.toString()
-      return
+     // return
   }
-  localStorage.WCount = 1
+  else
+  {
+    localStorage.WCount = 1
+  }
+  
   }
   
   if(localStorage.LCount)
@@ -128,9 +132,13 @@ if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how bre
       localStorage.LCount = parseInt(localStorage.LCount) + 1
      // console.log(localStorage.LCount)
       Ls.innerText = "Skill Issues:" + localStorage.LCount.toString()
-      return
+     // return
   }
-  localStorage.LCount = 1
+  else
+  {
+    localStorage.LCount = 1
+  }
+ // localStorage.LCount = 1
   }
   
   
