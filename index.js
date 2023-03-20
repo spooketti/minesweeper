@@ -9,6 +9,8 @@
 
 let board = document.getElementById("gameboard")
 let activeCount = document.getElementById("bombcount")
+let Ws = document.getElementById("W")
+let Ls = document.getElementById("L")
 let firstclick = true
 let hasfailed = false
 let hasTimerBegan = false
@@ -94,6 +96,38 @@ function assignColor(value)
     }
 }
 
+function updateLocalStorage(det)
+{
+if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how breh i just found out about localStorage today
+  // Store
+  if(det == "W")
+  {
+    if(localStorage.WCount)
+  {
+      localStorage.WCount += 1;
+      Ws.innerText = "W:" + localStorage.WCount.toString()
+      return
+  }
+  localStorage.WCount = 1
+  }
+  
+  else if(det == "L")
+  {
+    if(localStorage.LCount)
+  {
+      localStorage.LCount += 1;
+      Ws.innerText = "Skill Issues:" + localStorage.LCount.toString()
+      return
+  }
+  localStorage.LCount = 1
+  }
+} 
+else 
+{
+  document.getElementById("W").innerText = "why are you playing this on an outdated browser please stop being grandma and use a browser that supports Local Storage please i beg you";
+}
+}
+
 for(let j=0;j<9;j++)
 {
 for(let i=0;i<9;i++)
@@ -117,11 +151,13 @@ if(codeboard[j][i] == 5)
   {
     document.getElementById(j.toString()+i.toString()).style.backgroundColor = "#00ff00"
     win.play()
+    updateLocalStorage("W")
   }
   else
   {
     document.getElementById(j.toString()+i.toString()).style.backgroundColor = "#FF0000"
     boom.play()
+    updateLocalStorage("L")
   }
 }
 }
