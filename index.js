@@ -253,16 +253,20 @@ function revealTile(element)
             {
                 rareSound6.play()
             }
+            if(bombs == 0)
+            {
+              console.log(ok)
+            }
         }
 }
 
-function chord()
+function chord(element)
 {
-if(selectedTile.getAttribute("revealed"))
+if(element.getAttribute("revealed"))
 {
-    let idY = parseInt(selectedTile.id.charAt(0))
-    let idX = parseInt(selectedTile.id.charAt(1))
-    let req = parseInt(selectedTile.innerText)
+    let idY = parseInt(element.id.charAt(0))
+    let idX = parseInt(element.id.charAt(1))
+    let req = parseInt(element.innerText)
     let bombs = 0;
     for(let i=0;i<8;i++)
     {
@@ -314,7 +318,7 @@ document.addEventListener('mousemove', e => {
           flagTile()
         break;
         case "KeyC":
-            chord()
+            chord(selectedTile)
         break;
 
     }
@@ -333,7 +337,7 @@ window.oncontextmenu = function () {
         revealTile(selectedTile)
             break;
         case 1:
-            chord()
+            chord(selectedTile )
             break;
         case 2:
             flagTile()
