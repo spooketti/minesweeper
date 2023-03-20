@@ -253,9 +253,9 @@ function revealTile(element)
             {
                 rareSound6.play()
             }
-            if(bombs == 0)
+            if(bombs == 0)//WHO NEEDS FLOOD FILL IF YOU HAVE THIS
             {
-              console.log(ok)
+              chord(element)
             }
         }
 }
