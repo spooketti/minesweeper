@@ -98,13 +98,19 @@ function assignColor(value)
 
 function updateLocalStorage(det)
 {
+  if(hasfailed == true)
+  {
+    return;
+  }
+  //console.log(hasfailed)
 if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how breh i just found out about localStorage today
   // Store
   if(det == "W")
   {
     if(localStorage.WCount)
   {
-      localStorage.WCount += 1;
+      localStorage.WCount = parseInt(localStorage.WCount) + 1
+     // console.log(localStorage.WCount)
       Ws.innerText = "W:" + localStorage.WCount.toString()
       return
   }
@@ -113,20 +119,26 @@ if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how bre
   
   else if(det == "L")
   {
+
     if(localStorage.LCount)
   {
-      localStorage.LCount += 1;
-      Ws.innerText = "Skill Issues:" + localStorage.LCount.toString()
+      localStorage.LCount = parseInt(localStorage.LCount) + 1
+     // console.log(localStorage.LCount)
+      Ls.innerText = "Skill Issues:" + localStorage.LCount.toString()
       return
   }
   localStorage.LCount = 1
   }
+  Ws.innerText = "W:" + localStorage.WCount.toString()
+  Ls.innerText = "Skill Issues:" + localStorage.LCount.toString()
 } 
 else 
 {
   document.getElementById("W").innerText = "why are you playing this on an outdated browser please stop being grandma and use a browser that supports Local Storage please i beg you";
 }
 }
+
+updateLocalStorage(null)
 
 for(let j=0;j<9;j++)
 {
@@ -140,24 +152,25 @@ board.append(box)
 
 function legalizeNuclearBombs(status)
 {
-    hasfailed = true
 for(let j=0;j<9;j++)
 {
 for(let i=0;i<9;i++)
 {
-if(codeboard[j][i] == 5)
+if(codeboard[j][i] == 5)// why are we doing this? nvm i know why 
 {
   if(status == "w")
   {
     document.getElementById(j.toString()+i.toString()).style.backgroundColor = "#00ff00"
     win.play()
     updateLocalStorage("W")
+    hasfailed = true
   }
   else
   {
     document.getElementById(j.toString()+i.toString()).style.backgroundColor = "#FF0000"
     boom.play()
     updateLocalStorage("L")
+    hasfailed = true
   }
 }
 }
