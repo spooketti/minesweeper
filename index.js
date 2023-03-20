@@ -102,12 +102,15 @@ function updateLocalStorage(det)
   {
     return;
   }
+  Ws.innerText = "W:0"
+  Ls.innerText = "Skill Issues:0"
   //console.log(hasfailed)
 if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how breh i just found out about localStorage today
   // Store
-  if(det == "W")
+  if(localStorage.WCount)
   {
-    if(localStorage.WCount)
+    Ws.innerText = "W:" + localStorage.WCount.toString()
+    if(det == "W")
   {
       localStorage.WCount = parseInt(localStorage.WCount) + 1
      // console.log(localStorage.WCount)
@@ -117,10 +120,10 @@ if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how bre
   localStorage.WCount = 1
   }
   
-  else if(det == "L")
+  if(localStorage.LCount)
   {
-
-    if(localStorage.LCount)
+    Ls.innerText = "Skill Issues:" + localStorage.LCount.toString()
+    if(det=="L")
   {
       localStorage.LCount = parseInt(localStorage.LCount) + 1
      // console.log(localStorage.LCount)
@@ -129,16 +132,8 @@ if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how bre
   }
   localStorage.LCount = 1
   }
-  if(localStorage.WCount && localStorage.LCount)
-  {
-    Ws.innerText = "W:" + localStorage.WCount.toString()
-  Ls.innerText = "Skill Issues:" + localStorage.LCount.toString()
-  }
-  else
-  {
-    Ws.innerText = "W:0"
-    Ls.innerText = "Skill Issues:0"
-  }
+  
+  
 } 
 else 
 {
