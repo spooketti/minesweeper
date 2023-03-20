@@ -48,7 +48,7 @@ function timer()
  if(hasTimerBegan == false)
   {
     setInterval(function(){
-      activeTime += 1
+      activeTime += hasfailed==false ? 1 : 0
       timed.innerText = new Date(activeTime * 1000).toISOString().slice(11, 19); //idk wth this does but i like it https://bobbyhadz.com/blog/javascript-convert-seconds-to-hh-mm-ss
     },1000)
   }
@@ -133,9 +133,9 @@ function genBombs(boms,requirement)
   if(firstclick == true)
   {
     activeCount.innerText = requirement
+    solutionCount = area - requirement
   }
   
-  solutionCount = area - requirement
     //console.log(requirement)
   //  console.log(boms)
     let randx = Math.round(Math.random() * 8)
