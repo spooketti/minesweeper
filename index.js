@@ -129,8 +129,16 @@ if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how bre
   }
   localStorage.LCount = 1
   }
-  Ws.innerText = "W:" + localStorage.WCount.toString()
+  if(localStorage.WCount && localStorage.LCount)
+  {
+    Ws.innerText = "W:" + localStorage.WCount.toString()
   Ls.innerText = "Skill Issues:" + localStorage.LCount.toString()
+  }
+  else
+  {
+    Ws.innerText = "W:0"
+    Ls.innerText = "Skill Issues:0"
+  }
 } 
 else 
 {
