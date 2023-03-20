@@ -56,6 +56,11 @@ body
   display:inline;
 }
 
+#controlheader
+{
+  font-family: "Anek Telugu", sans-serif;
+}
+
 
 /*
 #center {
