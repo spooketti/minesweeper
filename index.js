@@ -12,6 +12,7 @@ let activeCount = document.getElementById("bombcount")
 let Ws = document.getElementById("W")
 let Ls = document.getElementById("L")
 let bestime = document.getElementById("timers")//don't ask how i even come up with these ids
+let winPercentDOM = document.getElementById("win percent")
 let firstclick = true
 let hasfailed = false
 let hasTimerBegan = false
@@ -162,6 +163,7 @@ if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how bre
     localStorage.bestTime = 999
   }
   bestime.innerText = "🏆Time: " + new Date(localStorage.bestTime * 1000).toISOString().slice(11, 19);
+  winPercentDOM.innerText = "Win Rate:" + Math.round((localStorage.WCount/localStorage.LCount) * 100).toString()+ "%"
 } 
 else 
 {
