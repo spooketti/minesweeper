@@ -163,7 +163,7 @@ if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how bre
     localStorage.bestTime = 999
   }
   bestime.innerText = "🏆Time: " + new Date(localStorage.bestTime * 1000).toISOString().slice(11, 19);
-  winPercentDOM.innerText = "Win Rate:" + Math.round((localStorage.WCount/localStorage.LCount) * 100).toString()+ "%"
+  winPercentDOM.innerText = "Win Rate:" + Math.round((localStorage.WCount/(localStorage.LCount+localStorage.WCount)) * 100).toString()+ "%"
 } 
 else 
 {
