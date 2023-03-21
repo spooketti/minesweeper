@@ -149,16 +149,16 @@ if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how bre
   
   if(localStorage.bestTime)
   {
-    console.log("exists")
+    //console.log("exists")
     if(activeTime < localStorage.bestTime && det == "W")
     {
-      console.log("won path")
+      //console.log("won path")
       localStorage.bestTime = activeTime
     }
   }
   else
   {
-    console.log("fail :(")
+    //console.log("fail :(")
     localStorage.bestTime = 999
   }
   bestime.innerText = "🏆Time: " + new Date(localStorage.bestTime * 1000).toISOString().slice(11, 19);
