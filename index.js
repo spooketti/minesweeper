@@ -402,8 +402,9 @@ window.oncontextmenu = function () {
         revealTile(selectedTile)
             break;
         case 1:
-            chord(selectedTile )
-            break;
+            chord(selectedTile)
+            e.preventDefault();
+            return false;
         case 2:
             flagTile()
             break;
