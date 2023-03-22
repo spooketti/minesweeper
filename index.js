@@ -104,8 +104,10 @@ function updateLocalStorage(det)
   {
     return;
   }
+  
   Ws.innerText = "W:0"
   Ls.innerText = "Skill Issues:0"
+  //document.getElementById("W").innerText = "why are you playing this on an outdated browser please stop being grandma and use a browser that supports Local Storage please i beg you";
   //console.log(hasfailed)
 if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how breh i just found out about localStorage today
   // Store
@@ -165,10 +167,6 @@ if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how bre
   bestime.innerText = "🏆Time: " + new Date(localStorage.bestTime * 1000).toISOString().slice(11, 19);
   winPercentDOM.innerText = "Win Rate:" + Math.round((localStorage.WCount/(localStorage.LCount+localStorage.WCount)) * 100).toString()+ "%"
 } 
-else 
-{
-  document.getElementById("W").innerText = "why are you playing this on an outdated browser please stop being grandma and use a browser that supports Local Storage please i beg you";
-}
 }
 
 updateLocalStorage(null)
