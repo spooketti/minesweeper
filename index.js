@@ -105,15 +105,14 @@ function updateLocalStorage(det)
     return;
   }
   
-  Ws.innerText = "W:0"
-  Ls.innerText = "Skill Issues:0"
+  Ws.innerText = "W:Outdated Browser"
+  Ls.innerText = "Skill Issues:Outdated Browser"
   //document.getElementById("W").innerText = "why are you playing this on an outdated browser please stop being grandma and use a browser that supports Local Storage please i beg you";
   //console.log(hasfailed)
 if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how breh i just found out about localStorage today
   // Store
   if(localStorage.WCount)
   {
-    Ws.innerText = "W:" + localStorage.WCount.toString()
     if(det == "W")
   {
       localStorage.WCount = parseInt(localStorage.WCount) + 1
@@ -121,8 +120,6 @@ if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how bre
       Ws.innerText = "W:" + localStorage.WCount.toString()
      // return
   }
- 
-  
   }
   else
   {
@@ -132,7 +129,6 @@ if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how bre
   
   if(localStorage.LCount)
   {
-    Ls.innerText = "Skill Issues:" + localStorage.LCount.toString()
     if(det=="L")
   {
       localStorage.LCount = parseInt(localStorage.LCount) + 1
