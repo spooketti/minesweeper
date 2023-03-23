@@ -116,6 +116,7 @@ if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how bre
     if(det == "W")
   {
       localStorage.WCount = parseInt(localStorage.WCount) + 1
+      console.log(localStorage.WCount)
      // console.log(localStorage.WCount)
       Ws.innerText = "W:" + localStorage.WCount.toString()
      // return
@@ -132,6 +133,7 @@ if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how bre
     if(det=="L")
   {
       localStorage.LCount = parseInt(localStorage.LCount) + 1
+      console.log(localStorage.LCount)
      // console.log(localStorage.LCount)
       Ls.innerText = "Skill Issues:" + localStorage.LCount.toString()
      // return
@@ -161,11 +163,11 @@ if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how bre
     localStorage.bestTime = 999
   }
   Ws.innerText ="Ws: "+ localStorage.WCount.toString()
-  Ls.innerText="Skill Issues: "+localStorage.LCount.toString()
+  Ls.innerText="Skill Issues: "+ localStorage.LCount.toString()
   bestime.innerText = "🏆Time: " + new Date(localStorage.bestTime * 1000).toISOString().slice(11, 19);
-  let win = localStorage.LCount = parseInt(localStorage.WCount)
-  let total = localStorage.WCount = parseInt(localStorage.LCount)
-  winPercentDOM.innerText = "Win Rate:" + Math.round((win/(total+win)) * 100).toString()+ "%"
+  let win = parseInt(localStorage.WCount)
+  let total = parseInt(localStorage.LCount) + win
+  winPercentDOM.innerText = "Win Rate:" + Math.round((win/(total)) * 100).toString()+ "%"
 } 
 }
 
