@@ -163,7 +163,9 @@ if (typeof(Storage) !== "undefined") { //don't ask me how this works idk how bre
   Ws.innerText ="Ws: "+ localStorage.WCount.toString()
   Ls.innerText="Skill Issues: "+localStorage.LCount.toString()
   bestime.innerText = "🏆Time: " + new Date(localStorage.bestTime * 1000).toISOString().slice(11, 19);
-  winPercentDOM.innerText = "Win Rate:" + Math.round((localStorage.WCount/(localStorage.LCount+localStorage.WCount)) * 100).toString()+ "%"
+  let win = localStorage.LCount = parseInt(localStorage.WCount)
+  let total = localStorage.WCount = parseInt(localStorage.LCount)
+  winPercentDOM.innerText = "Win Rate:" + Math.round((win/(total+win)) * 100).toString()+ "%"
 } 
 }
 
