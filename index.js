@@ -284,7 +284,7 @@ activeCount.innerText = parseInt(activeCount.innerText) - 1
 
 function revealTile(element)
 {
-    if(element.hasChildNodes())//I ACCIDENTALLY JUST SAVED MYSELF SO MUCH TIME THIS IS SUPPOSED TO BE ANTI CHEAT BUT IT'S ALSO CHORD PROTECTION
+    if(element.hasChildNodes() || hasfailed == true)//I ACCIDENTALLY JUST SAVED MYSELF SO MUCH TIME THIS IS SUPPOSED TO BE ANTI CHEAT BUT IT'S ALSO CHORD PROTECTION
         {
             return;
         }
@@ -302,6 +302,7 @@ function revealTile(element)
             {
                 if(firstclick == true)
                 {
+                  console.log("fclick")
                     firstclick = false
                     genBombs(0,1)
                     codeboard[idY][idX] = 0
