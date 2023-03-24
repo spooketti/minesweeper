@@ -253,6 +253,11 @@ function evalulateWin()
 
 function flagTile()
 {
+  if(selectedTile.getAttribute("revealed") || selectedTile.id.length != 2 || selectedTile.hasChildNodes() || hasfailed == true)
+{
+    return;
+}
+
     let idY = parseInt(selectedTile.id.charAt(0))
     let idX = parseInt(selectedTile.id.charAt(1))
 // console.log(selectedTile.tagName)
@@ -268,10 +273,7 @@ if(selectedTile.tagName == "IMG")
     
 }
 //console.log(selectedTile.className)
-if(selectedTile.getAttribute("revealed") || selectedTile.id.length != 2 || selectedTile.hasChildNodes() || hasfailed == true)
-{
-    return;
-}
+
 let image = document.createElement("img")
 image.src = "./flag.jpg"
 selectedTile.appendChild(image)
