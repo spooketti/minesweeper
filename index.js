@@ -268,7 +268,7 @@ if(selectedTile.tagName == "IMG")
     
 }
 //console.log(selectedTile.className)
-if(selectedTile.getAttribute("revealed") || selectedTile.id.length != 2 || selectedTile.hasChildNodes())
+if(selectedTile.getAttribute("revealed") || selectedTile.id.length != 2 || selectedTile.hasChildNodes() || hasfailed == true)
 {
     return;
 }
