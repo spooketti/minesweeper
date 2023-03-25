@@ -253,7 +253,7 @@ function evalulateWin()
 
 function flagTile()
 {
-  if(selectedTile.getAttribute("revealed") || selectedTile.id.length != 2 || selectedTile.hasChildNodes() || hasfailed == true)
+  if(selectedTile.getAttribute("revealed") || selectedTile.id.length != 2 || hasfailed == true)
 {
     return;
 }
