@@ -276,6 +276,7 @@ if(selectedTile.tagName == "IMG")
 
 let image = document.createElement("img")
 image.src = "./flag.jpg"
+image.id = "oo"
 selectedTile.appendChild(image)
 activeBoard[idY][idX] = 5
 activeCount.innerText = parseInt(activeCount.innerText) - 1
