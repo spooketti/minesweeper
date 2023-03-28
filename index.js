@@ -253,16 +253,18 @@ function evalulateWin()
 
 function flagTile()
 {
-  if(selectedTile.getAttribute("revealed") || selectedTile.id.length != 2 || hasfailed == true)
+  if(selectedTile.getAttribute("revealed") || selectedTile.id.length != 2 || hasfailed == true) 
 {
     return;
 }
+//console.log(selectedTile)
 
     let idY = parseInt(selectedTile.id.charAt(0))
     let idX = parseInt(selectedTile.id.charAt(1))
 // console.log(selectedTile.tagName)
 if(selectedTile.tagName == "IMG")
 {
+  //console.log("broken code")
     idY = parseInt(selectedTile.parentElement.id.charAt(0))
     idX = parseInt(selectedTile.parentElement.id.charAt(1))
     activeBoard[idY][idX] = 0
@@ -271,6 +273,14 @@ if(selectedTile.tagName == "IMG")
   //  console.log(activeBoard)
     return;
     
+}
+if(selectedTile.hasChildNodes())
+{
+  activeBoard[idY][idX] = 0
+  selectedTile.firstElementChild.remove()
+  activeCount.innerText = parseInt(activeCount.innerText) + 1
+//  console.log(activeBoard)
+  return;
 }
 //console.log(selectedTile.className)
 
